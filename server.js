@@ -2,6 +2,8 @@ const path = require('path');
 const express = require ('express');
 const app = express();
 const cors = require('cors');
+const corseOptions = require('./config/corsOptions');
+
 
 const {logger} = require('./middleware/logEvents');
 const {errorHandler} = require('./middleware/errorHandler');
@@ -12,21 +14,8 @@ const PORT = process.env.PORT || 3500;
 //custom middleware logger from the logEvent.js
 app.use(logger);
 
-//third-party middleware -- Cross Origin Resource Sharing
-const whitelist = ['https://www.yoursite.com', 'http://127.0.0.1:5500', 'http://localhost:3500'];
-const corseOptions = {
-    origin: (origin, callback)=> {
-        if(whitelist.indexOf(origin) != -1 || !origin){ //we need to remove !origin after the end of development
-            callback(null, true)
-        }else{
-            callback(new Error('Not Allowed by CORS'));
-        }
-    },
-    optionsSuccessStatus: 200
-}
 //to test we open dev tools in the website we want as www.google.com and type ==> fetch('http://localhost:3500');
 //we put our project and it mainly frontend project react or even vanilla JS domain to the whitelist to ba able to access the routes
-
 app.use(cors(corseOptions));
 
 
@@ -43,8 +32,6 @@ app.use('/subdir', express.static(path.join(__dirname, '/public')));
 
 //routes
 app.use('/', require('./routes/root'));
-app.use('/subdir', require('./routes/subdir'));
-app.use('/employees', require('./routes/api/employees'));
 
 
 //app.use(/\//) ==> for middleware
