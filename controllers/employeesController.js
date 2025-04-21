@@ -70,5 +70,5 @@ module.exports = {
     updateEmployee,
     deleteEmployee,
     getEmployee
-}
+};
 

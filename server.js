@@ -2,7 +2,7 @@ const path = require('path');
 const express = require ('express');
 const app = express();
 const cors = require('cors');
-const corseOptions = require('./config/corsOptions');
+const corsOptions = require('./config/corsOptions');
 
 
 const {logger} = require('./middleware/logEvents');
@@ -16,7 +16,7 @@ app.use(logger);
 
 //to test we open dev tools in the website we want as www.google.com and type ==> fetch('http://localhost:3500');
 //we put our project and it mainly frontend project react or even vanilla JS domain to the whitelist to ba able to access the routes
-app.use(cors(corseOptions));
+app.use(cors(corsOptions));
 
 
 //built-in middleware to handle urlencoded form data

@@ -4,7 +4,7 @@ const whitelist = [
     'https://www.yoursite.com',
     'http://127.0.0.1:5500',
     'http://localhost:3500'];
-const corseOptions = {
+const corsOptions = {
     origin: (origin, callback)=> {
         if(whitelist.indexOf(origin) != -1 || !origin){ //we need to remove !origin after the end of development
             callback(null, true)
@@ -15,4 +15,4 @@ const corseOptions = {
     optionsSuccessStatus: 200
 }
 
-module.exports = 
+module.exports = corsOptions;
