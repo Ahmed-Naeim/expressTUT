@@ -57,3 +57,5 @@
 2025-04-20	12:09:54	9edb397b-dfe9-479a-a763-f596b99ecd42	PUT	undefined	/employees
 2025-04-20	12:11:10	d92d5bef-0801-43f7-848c-7c53f5959ce2	DELETE	undefined	/employees
 2025-04-20	12:12:09	063af7ee-2d50-4a53-9673-b6985af52a4f	GET	undefined	/employees/1
+2025-04-23	09:50:47	325c6b94-f455-425a-9b14-95a82170a25c	GET	undefined	/employees/1
+2025-04-23	09:50:57	7d665bae-9c86-4ee1-ad2a-7738e4dc5654	GET	undefined	/employees
