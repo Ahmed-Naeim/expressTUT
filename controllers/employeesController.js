@@ -29,7 +29,7 @@ const updateEmployee = (req, res)=>{
     }
 
     if(req.body.firstname) employee.firstname = req.body.firstname;
-    if(req.body.lastname) employee.firstname.lastIndexOf = req.body.lastname;
+    if (req.body.lastname) employee.lastname = req.body.lastname;
 
     //filtered array to remove the existing data which have the same id (old data) to update it
     const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
@@ -43,7 +43,7 @@ const updateEmployee = (req, res)=>{
 };
 
 const deleteEmployee = (req, res) =>{
-    const employee = data.employees.find(emp => emp,id === parseInt(req.body.id));
+    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
 
     if(!employee){
         return res.status(400).json({"message": `Employee ID ${req.body.id} not found`});
@@ -57,7 +57,7 @@ const deleteEmployee = (req, res) =>{
 };
 
 const getEmployee = (req, res) =>{
-    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
+    const employee = data.employees.find(emp => emp.id === parseInt(req.params.id));
     if(!employee){
         return res.status(400).json({"message": `Employee ID ${req.body.id} not found`});
     }

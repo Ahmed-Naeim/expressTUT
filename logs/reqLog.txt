@@ -57,3 +57,9 @@
 2025-04-20	12:09:54	9edb397b-dfe9-479a-a763-f596b99ecd42	PUT	undefined	/employees
 2025-04-20	12:11:10	d92d5bef-0801-43f7-848c-7c53f5959ce2	DELETE	undefined	/employees
 2025-04-20	12:12:09	063af7ee-2d50-4a53-9673-b6985af52a4f	GET	undefined	/employees/1
+2025-04-23	09:59:49	7031d0c6-aa7f-4e8b-b8ef-4b6f267cbdbb	GET	undefined	/employees/1
+2025-04-23	09:59:58	6c6bfada-71cc-47f3-8f7c-a26f838651d5	GET	undefined	/employees/css/style.css
+2025-04-23	10:00:32	1f9e0676-9afc-451d-8998-0cae1c6fda8f	GET	undefined	/employees
+2025-04-23	10:05:40	3027fd7f-b580-4d47-9c08-906e0765e789	GET	undefined	/employees
+2025-04-23	10:16:31	3c448bfd-2085-4fd0-805d-fd1ec88342ab	GET	undefined	/api/employees
+2025-04-23	10:16:50	5a268d38-b196-491c-8bc5-4ec221ba1b5b	GET	undefined	/api/employees
