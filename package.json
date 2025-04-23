@@ -1,5 +1,5 @@
 {
-  "name": "myTUT",
+  "name": "expressTUT",
   "version": "1.0.0",
   "description": "Express tutorial",
   "main": "server.js",
@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "date-fns": "^2.23.0",
     "express": "^4.17.1",
-    "myTUT": "file:",
+    "expressTUT": "file:",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
