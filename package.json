@@ -1,24 +1,21 @@
 {
-  "name": "nodeTUT",
+  "name": "09tut",
   "version": "1.0.0",
-  "description": "myTUT",
+  "description": "Express tutorial",
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server"
   },
-  "author": "Naeim",
+  "author": "Dave Gray",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "date-fns": "^4.1.0",
-    "express": "^5.1.0",
-    "nodeTUT": "file:",
-    "npmtut": "file:",
-    "uuid": "^11.1.0"
+    "date-fns": "^2.23.0",
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^2.0.12"
   }
 }

@@ -1,15 +1,15 @@
-
-//third-party middleware -- Cross Origin Resource Sharing
 const whitelist = [
     'https://www.yoursite.com',
     'http://127.0.0.1:5500',
-    'http://localhost:3500'];
+    'http://localhost:3500'
+];
+
 const corsOptions = {
-    origin: (origin, callback)=> {
-        if(whitelist.indexOf(origin) != -1 || !origin){ //we need to remove !origin after the end of development
+    origin: (origin, callback) => {
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
             callback(null, true)
-        }else{
-            callback(new Error('Not Allowed by CORS'));
+        } else {
+            callback(new Error('Not allowed by CORS'));
         }
     },
     optionsSuccessStatus: 200
