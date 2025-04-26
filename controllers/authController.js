@@ -15,16 +15,11 @@ const handleLogin = async (req, res) =>{
     const {user, pwd} = req.body;
 
     if(!user || !pwd) return res.status(400).json({"message": "Username and Password are REQUIRED!!"});
-
     const foundUser = usersDB.users.find(person => person.username === user);
-
     if(!foundUser) return res.sendStatus(401); //Unauthorized
 
     //evaluate password
     const match = await bcrypt.compare(pwd, foundUser.password);
-
-
-
 
     if(match){
         //create a JWT to use with other routes which want to be protected in our api
@@ -58,6 +53,7 @@ const handleLogin = async (req, res) =>{
             httpOnly: true, //can't be accessed by javascript in the browser
             maxAge: 24 * 60 * 60 * 1000 //1 day in milliseconds
         }); //set the cookie with the refresh token and expiration time
+        res.json({ accessToken }); //send the access token to the client
     }
     else{
         res.sendStatus(401);
