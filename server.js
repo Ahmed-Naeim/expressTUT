@@ -5,6 +5,10 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
+
+const verifyJWT = require('./middleware/verifyJWT'); //import the verifyJWT middleware
+const cookieParser = require('cookie-parser'); //import the cookie-parser middleware
+
 const PORT = process.env.PORT || 3500;
 
 // custom middleware logger
@@ -22,10 +26,16 @@ app.use(express.json());
 //serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
 
+// cookie parser middleware
+app.use(cookieParser()); //use the cookie-parser middleware to parse cookies in the request
+
 // routes
 app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
+app.use('/refresh', require('./routes/refresh'));
+
+app.use(verifyJWT); //use the verifyJWT middleware for all routes after this line (it is waterfall)
 app.use('/employees', require('./routes/api/employees'));
 
 app.all('*', (req, res) => {
