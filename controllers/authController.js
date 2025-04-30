@@ -50,6 +50,8 @@ const handleLogin = async (req, res) =>{
         //we send the refresh token to the client as a cookie (httpOnly) so it can't be accessed by javascript in the browser
         res.cookie('jwt', refreshToken, { //send the refresh token as a cookie
             httpOnly: true, //can't be accessed by javascript in the browser
+            sameSite: 'None', //cross site cookie
+            secure: true, //only send the cookie over https (in production)
             maxAge: 24 * 60 * 60 * 1000 //1 day in milliseconds
         }); //set the cookie with the refresh token and expiration time
         res.json({ accessToken }); //send the access token to the client

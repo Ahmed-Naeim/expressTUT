@@ -19,7 +19,7 @@ const handleLogout =  async (req, res) =>{
     //Is refreshToken in db?
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     if(!foundUser) {
-        res.clearCookie('jwt', {httpOnly: true}); //secure: true only if using https
+        res.clearCookie('jwt', {httpOnly: true, sameSite: 'None' , secure: 'true'}); //secure: true only if using https
         return res.sendStatus(204); //successful but no content to send back
     }
 
