@@ -45,7 +45,6 @@ const handleLogin = async (req, res) =>{
             JSON.stringify(usersDB.users) //write the updated usersDB to the json file
         );
 
-        res.json({accessToken}); //send the access token to the client 
         //NOTE: we store access token in the client (local storage or session storage) and send it with every request to the server
 
         //we send the refresh token to the client as a cookie (httpOnly) so it can't be accessed by javascript in the browser

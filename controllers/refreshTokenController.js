@@ -11,8 +11,7 @@ require('dotenv').config();
 const handleRefreshToken =  (req, res) =>{
     const cookies = req.cookies;
 
-    if(!cookies?.jwt) return res.status(401); //check if has a cookie then check if there is a jwt property
-    console.log(cookies.jwt);
+    if(!cookies?.jwt) return res.sendStatus(401); //check if has a cookie then check if there is a jwt property
     const refreshToken = cookies.jwt;
 
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
