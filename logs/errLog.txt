@@ -4,3 +4,5 @@
 20250502	22:08:47	77ad8b35-6a64-4fc5-8bca-3b990c770861	ReferenceError: whitelist is not defined
 20250502	22:09:17	da6f55e3-152b-4d65-b055-88def2f1ad93	ReferenceError: whitelist is not defined
 20250502	22:09:17	1e53f6c4-b031-477a-b292-ca604514041a	ReferenceError: whitelist is not defined
+20250504	22:36:27	851952c0-e865-4e60-819f-456102735320	SyntaxError: Expected double-quoted property name in JSON at position 10
+20250504	22:39:10	9797a24a-9e1a-4452-9da8-1199bed6b622	SyntaxError: Expected ',' or '}' after property value in JSON at position 11

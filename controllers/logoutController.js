@@ -1,10 +1,4 @@
-const usersDB = {
-    users: require('../model/users.json'),
-    setUsers: function (data) {this.users = data}
-};
-
-const fsPromises = require('fs').promises;
-const path = require('path');
+const User = require('../model/User'); //import the User model
 
 const handleLogout =  async (req, res) =>{
     //On Client, also delete the access token
@@ -17,22 +11,18 @@ const handleLogout =  async (req, res) =>{
     const refreshToken = cookies.jwt;
 
     //Is refreshToken in db?
-    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
+    const foundUser = await User.findOne({refreshToken}).exec(); //findOne method returns a promise, so we need to use await to get the result
     if(!foundUser) {
         res.clearCookie('jwt', {httpOnly: true, sameSite: 'None' , secure: 'true'}); //secure: true only if using https
         return res.sendStatus(204); //successful but no content to send back
     }
 
     //Delete refreshToken in db
-    const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken); //remove the user with the refresh token from the database
-    const currentUser = {...foundUser, refreshToken: ''}; //remove the refresh token from the user
-    usersDB.setUsers([...otherUsers, currentUser]); //update the usersDB with the new user
-    await fsPromises.writeFile( //write the updated usersDB to the json file
-        path.join(__dirname, '..', 'model', 'users.json'), //path to the json file
-        JSON.stringify(usersDB.users) //write the updated usersDB to the json file
-    );
+    foundUser.refreshToken = ''; //remove the refresh token from the user object
+    const result = await foundUser.save(); //save the user object to the database
+    console.log(result); //log the result to the console
 
-    res.clearCookie('jwt', {httpOnly: true}); //secure: true only if using https
+    res.clearCookie('jwt', {httpOnly: true, sameSite:'None', secure: true}); //secure: true only if using https
     res.sendStatus(204); //successful but no content to send back
 
 }

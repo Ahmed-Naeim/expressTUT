@@ -1,20 +1,14 @@
-const usersDB = {
-    users: require('../model/users.json'),
-    setUsers: function (data) {this.users = data}
-};
-
+const User =require('../model/User'); //import the User model
 const bcrypt = require('bcrypt');
 
     //Create JWTs
     const jwt = require('jsonwebtoken');
-    const fsPromises = require('fs').promises;
-    const path = require('path');
 
 const handleLogin = async (req, res) =>{
     const {user, pwd} = req.body;
 
     if(!user || !pwd) return res.status(400).json({"message": "Username and Password are REQUIRED!!"});
-    const foundUser = usersDB.users.find(person => person.username === user);
+    const foundUser = await User.findOne({username: user}).exec(); //findOne method returns a promise, so we need to use await to get the result
     if(!foundUser) return res.sendStatus(401); //Unauthorized
 
     //evaluate password
@@ -43,13 +37,9 @@ const handleLogin = async (req, res) =>{
         ); //pass in the payload (username) and secret key
 
         //Saving refreshToken with current user in the database (in the json file)
-        const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username);
-        const currentUser = { ...foundUser, refreshToken: refreshToken };
-        usersDB.setUsers([...otherUsers, currentUser]); //update the usersDB with the new user
-        await fsPromises.writeFile( //
-            path.join(__dirname, '..', 'model', 'users.json'), //path to the json file
-            JSON.stringify(usersDB.users) //write the updated usersDB to the json file
-        );
+        foundUser.refreshToken = refreshToken; //add the refresh token to the user object
+        const result = await foundUser.save(); //save the user object to the database
+        console.log(result); //log the result to the console
 
         //NOTE: we store access token in the client (local storage or session storage) and send it with every request to the server
 
@@ -57,7 +47,7 @@ const handleLogin = async (req, res) =>{
         res.cookie('jwt', refreshToken, { //send the refresh token as a cookie
             httpOnly: true, //can't be accessed by javascript in the browser
             sameSite: 'None', //cross site cookie
-            secure: true, //only send the cookie over https (in production)
+            //secure: true,                                             //only send the cookie over https (in production)
             maxAge: 24 * 60 * 60 * 1000 //1 day in milliseconds
         }); //set the cookie with the refresh token and expiration time
         res.json({ accessToken }); //send the access token to the client
