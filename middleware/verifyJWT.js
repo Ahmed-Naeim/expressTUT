@@ -1,11 +1,10 @@
 //Create JWTs
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 const verifyJWT = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    if(!authHeader) return res.sendStatus(401); //Unauthorized
-    console.log(authHeader); //log the authorization header to the console
+    const authHeader = req.headers.authorization || req.headers.Authorization; //get the authorization header from the request
+    //check if the authorization header is present and starts with Bearer
+    if(!authHeader?.startsWith('Bearer')) return res.sendStatus(401); //Unauthorized
     const token = authHeader.split(' ')[1]; //Bearer token
 
 
@@ -14,7 +13,8 @@ const verifyJWT = (req, res, next) => {
         process.env.ACCESS_TOKEN_SECRET, 
         (err, decoded) => {
         if(err) return res.sendStatus(403); //Forbidden
-        req.user = decoded.username; //add the username to the request object
+        req.user = decoded.UserInfo.username; //add the username to the request object
+        req.roles = decoded.UserInfo.roles; //add the roles to the request object
         next(); //call the next middleware function
     });
 };

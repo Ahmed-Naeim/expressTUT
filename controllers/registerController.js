@@ -19,7 +19,11 @@ const handleNewUser = async (req, res) =>{
         const hashedPwd = await bcrypt.hash(pwd, 10); //also passing 10 slat rounds to make it more complex for anyone to find all pwd even if he know the pattern
         
         //store the new user
-        const newUser = {"username": user, "password": hashedPwd};
+        const newUser = {
+            "username": user,
+            "roles": { "User": 2001 }, //default role
+            "password": hashedPwd
+        };
         usersDB.setUsers([... usersDB.users, newUser]);
 
         await fsPromises.writeFile(

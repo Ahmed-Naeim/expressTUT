@@ -1,16 +1,23 @@
+require('dotenv').config(); //import dotenv to load environment variables from .env file
 const express = require('express');
 const app = express();
 const path = require('path');
-const credentials = require('./middleware/credentials'); //import the credentials middleware
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
-
 const verifyJWT = require('./middleware/verifyJWT'); //import the verifyJWT middleware
 const cookieParser = require('cookie-parser'); //import the cookie-parser middleware
+const credentials = require('./middleware/credentials'); //import the credentials middleware
+
+//Database connection
+const mongoose = require('mongoose'); //import mongoose to connect to the database
+const connectDB = require('./config/dbConn'); //import the connectDB function from dbConn.js
 
 const PORT = process.env.PORT || 3500;
+
+connectDB(); //call the connectDB function to connect to the database
+
 
 // custom middleware logger
 app.use(logger);
@@ -57,4 +64,10 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose.connection.once('open', () => 
+    {
+        console.log('Connected to MongoDB');
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
+
+

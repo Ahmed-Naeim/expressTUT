@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 
     //Create JWTs
     const jwt = require('jsonwebtoken');
-    require('dotenv').config();
     const fsPromises = require('fs').promises;
     const path = require('path');
 
@@ -22,10 +21,17 @@ const handleLogin = async (req, res) =>{
     const match = await bcrypt.compare(pwd, foundUser.password);
 
     if(match){
+        const roles = Object.values(foundUser.roles); //get the roles of the user (array of roles)
         //create a JWT to use with other routes which want to be protected in our api
         //normal token and refresh token
         const accessToken = jwt.sign(
-            { "username": foundUser.username }, //payload (username)
+            {
+                "UserInfo": {
+                    "username": foundUser.username , //username of the user
+                    "roles": roles //pass in the roles of the user (array of roles)
+
+                } 
+            }, //payload (username)
             process.env.ACCESS_TOKEN_SECRET, //secret key
             { expiresIn: '30s' } //token expiration time ==> in production make it longer 5-15 minutes
         ); //pass in the payload (username) and secret key

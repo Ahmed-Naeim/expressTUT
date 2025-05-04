@@ -1,3 +1,6 @@
 20250423	10:43:59	006a97c2-e34c-4ff6-a6c2-64a5c72f4b4d	ReferenceError: id is not defined
 20250423	10:52:47	252ccf01-99e8-4dad-b216-968899ab9daf	ReferenceError: id is not defined
 20250423	10:52:48	892179c1-9cef-47c6-aa19-0d30f294db60	ReferenceError: id is not defined
+20250502	22:08:47	77ad8b35-6a64-4fc5-8bca-3b990c770861	ReferenceError: whitelist is not defined
+20250502	22:09:17	da6f55e3-152b-4d65-b055-88def2f1ad93	ReferenceError: whitelist is not defined
+20250502	22:09:17	1e53f6c4-b031-477a-b292-ca604514041a	ReferenceError: whitelist is not defined

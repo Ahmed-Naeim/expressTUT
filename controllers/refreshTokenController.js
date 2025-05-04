@@ -5,7 +5,6 @@ const usersDB = {
 
 //Create JWTs
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 
 const handleRefreshToken =  (req, res) =>{
@@ -23,8 +22,15 @@ const handleRefreshToken =  (req, res) =>{
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) =>{
             if(err || foundUser.username !== decoded.username) return res.sendStatus(403);
+            const roles = Object.values(foundUser.roles); //get the roles of the user (array of roles)
+            //create a JWT to use with other routes which want to be protected in our api
             const accessToken = jwt.sign(
-                {"username": decoded.username},
+                {
+                    "UserInfo": {
+                        "username": decoded.username,
+                        "roles": roles //pass in the roles of the user (array of roles)
+                    }
+            },
                 process.env.ACCESS_TOKEN_SECRET,
                 {expiresIn: '30s'}
             );
